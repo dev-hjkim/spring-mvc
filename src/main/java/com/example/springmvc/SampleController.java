@@ -14,7 +14,9 @@ public class SampleController {
     }
 
     @GetMapping("/hello")
-    public String hello2(@RequestParam("name") Person person) {
+    public String hello2(@RequestParam("id") Person person) {
+        System.out.println(person.getId());
+        System.out.println(person.getName());
         return "hello " + person.getName();
     }
 }

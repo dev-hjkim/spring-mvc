@@ -21,6 +21,9 @@ class SampleControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    PersonRepository personRepository;
+
     @Test
     public void hello() throws Exception {
         this.mockMvc.perform(get("/hello/hjkim"))
@@ -30,8 +33,12 @@ class SampleControllerTest {
 
     @Test
     public void hello2() throws Exception {
+        Person person = new Person();
+        person.setName("hjkim");
+        Person savedPerson = personRepository.save(person);
+
         this.mockMvc.perform(get("/hello")
-                        .param("name", "hjkim"))
+                        .param("id", savedPerson.getId().toString()))
                 .andDo(print())
                 .andExpect(content().string("hello hjkim"));
     }
