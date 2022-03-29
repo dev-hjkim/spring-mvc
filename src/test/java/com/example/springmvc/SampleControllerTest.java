@@ -40,6 +40,6 @@ class SampleControllerTest {
         this.mockMvc.perform(get("/hello")
                         .param("id", savedPerson.getId().toString()))
                 .andDo(print())
-                .andExpect(content().string("hello hjkim"));
+                .andExpect(content().string("hello 1"));
     }
 }
