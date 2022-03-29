@@ -1,5 +1,6 @@
 package com.example.springmvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,6 +27,9 @@ class SampleControllerTest {
 
     @Autowired
     PersonRepository personRepository;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Test
     public void hello() throws Exception {
@@ -62,5 +67,22 @@ class SampleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello"));
+    }
+
+    @Test
+    public void jsonMessage() throws Exception {
+        Person person = new Person();
+        person.setId(2022l);
+        person.setName("hjkim");
+
+        String jsonString = objectMapper.writeValueAsString(person);
+
+        this.mockMvc.perform(get("/jsonMessage")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+                        .content(jsonString))
+                .andDo(print())
+                .andExpect(status().isOk())
+                ;
     }
 }
