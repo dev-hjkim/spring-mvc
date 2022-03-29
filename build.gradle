@@ -25,6 +25,9 @@ dependencies {
     implementation 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation 'javax.xml.bind:jaxb-api'
+    implementation 'org.glassfish.jaxb:jaxb-runtime'
+    implementation 'org.springframework:spring-oxm'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
